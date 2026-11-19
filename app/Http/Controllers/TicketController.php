@@ -36,6 +36,8 @@ class TicketController extends Controller
             function () use ($validated) {
                 Ticket::create($validated);
 
+                session()->flash('ticket_submitted', true);
+
                 return redirect()->route('tickets.thank-you')
                     ->with('success', 'Thank you! Your event inquiry has been submitted successfully.');
             },
@@ -54,10 +56,14 @@ class TicketController extends Controller
     }
 
     /**
-     * Display the submission confirmation page.
+     * Display the submission confirmation page only after submission.
      */
     public function thankYou()
     {
+        if (!session()->pull('ticket_submitted')) {
+            return redirect()->route('tickets.create');
+        }
+
         return view('tickets.thank-you');
     }
 }
