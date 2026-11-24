@@ -1,29 +1,59 @@
 ﻿# Mehfil Event Support Ticket System
 
-A Laravel 10 application for collecting customer event inquiries for Mehfil Event Planners.
+A Laravel 10 web application for collecting customer event inquiries and allowing authorized staff to manage and view customer support tickets.
 
-## Technologies
+## Technologies Used
 
 - Laravel 10
 - PHP 8.3
 - MySQL
-- Blade, HTML5 and CSS3
+- Blade Templates
+- HTML5 and CSS3
+- Tailwind CSS
+- Vite
+- Laravel Breeze Authentication
 
-## Task 1: Customer Inquiry Form
+## Features
 
-Completed features:
-- Public customer inquiry form
-- Customer name, email, event type and message fields
-- Server-side validation and CSRF protection
-- Event types: Wedding, Engagement, Birthday, Corporate Event and Other
-- Submission confirmation page
-- Rate limiting: one submission per IP address per minute
-- New tickets receive the default status `new`
-- Responsive inquiry-page styling
+### 1. Customer Inquiry Form
+
+- Public customer inquiry form.
+- Customer name, email, event type, and message fields.
+- Server-side validation and CSRF protection.
+- Supported event types:
+  - Wedding
+  - Engagement
+  - Birthday
+  - Corporate Event
+  - Other
+- Submission confirmation page.
+- Rate limiting: one submission per IP address per minute.
+- New tickets automatically receive the `new` status.
+
+### 2. Staff Authentication
+
+- Staff login using email and password.
+- Validation of login credentials.
+- Error messages for invalid credentials.
+- Public staff registration disabled.
+- Secure session handling.
+- Staff logout functionality.
+
+### 3. Staff Dashboard
+
+- Protected dashboard accessible only to authenticated staff.
+- Displays the latest 10 customer tickets.
+- Ticket information displayed in a table:
+  - Customer Name
+  - Event Type
+  - Status
+  - Date
+- Unauthenticated visitors are redirected to the login page.
 
 ## Database
 
 The `tickets` table stores:
+
 - `customer_name`
 - `email`
 - `event_type`
@@ -31,56 +61,117 @@ The `tickets` table stores:
 - `status` (defaults to `new`)
 - Timestamps
 
-## Local Setup
+The `users` table stores staff authentication information.
 
-Requirements: PHP 8.3 or compatible, Composer, MySQL and Git.
+## Local Installation and Setup
 
-1. Clone the repository:
+### Requirements
 
-   ```bash
-   git clone https://github.com/noor-2323/mehfil-event-support-ticket-system.git
-   cd mehfil-event-support-ticket-system
-   ```
+- PHP 8.3 or compatible
+- Composer
+- MySQL
+- Node.js and npm
+- Git
 
-2. Install dependencies:
+### 1. Clone the Repository
 
-   ```bash
-   composer install
-   ```
+```bash
+git clone https://github.com/noor-2323/mehfil-event-support-ticket-system.git
+cd mehfil-event-support-ticket-system
+```
 
-3. Create the environment file:
+### 2. Install PHP Dependencies
 
-   ```bash
-   copy .env.example .env
-   ```
+```bash
+composer install
+```
 
-4. Create a MySQL database named `mehfil_ticket_system`. Update the database settings in `.env` and set:
+### 3. Install Frontend Dependencies
 
-   ```env
-   SESSION_DRIVER=file
-   ```
+```bash
+npm install
+npm run build
+```
 
-5. Generate the application key and run migrations:
+### 4. Configure Environment
 
-   ```bash
-   php artisan key:generate
-   php artisan migrate
-   ```
+Create the environment file:
 
-6. Start the development server:
+```bash
+copy .env.example .env
+```
 
-   ```bash
-   php artisan serve
-   ```
+Configure your MySQL database settings in `.env`.
 
-7. Visit http://127.0.0.1:8000/inquiry
+Create a database named:
+
+```text
+mehfil_ticket_system
+```
+
+Set the session driver:
+
+```env
+SESSION_DRIVER=file
+```
+
+### 5. Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+### 6. Run Database Migrations and Seed Staff Account
+
+```bash
+php artisan migrate --seed
+```
+
+This creates the required database tables and the initial staff account.
+
+### 7. Start the Application
+
+```bash
+php artisan serve
+```
+
+Open the application:
+
+Customer inquiry form:
+
+http://127.0.0.1:8000/inquiry
+
+Staff login:
+
+http://127.0.0.1:8000/login
+
+Staff dashboard:
+
+http://127.0.0.1:8000/dashboard
+
+## Development Staff Login
+
+The database seeder creates this development account:
+
+- **Email:** staff@mehfil.com
+- **Password:** Mehfil@123
+
+**Security note:** These are demonstration credentials. Change the password before using the application in production.
 
 ## Project Progress
 
-- Task 1: Customer ticket submission - Completed
-- Task 2: Staff login and protected ticket inbox - Upcoming
-- Task 3: Ticket details and staff replies - Upcoming
-- Task 4: Ticket status management and SLA - Upcoming
-- Task 5: Deployment and handover - Upcoming
+| Task | Description | Status |
+|---|---|---|
+| Task 1 | Customer ticket submission system | Completed |
+| Task 2 | Staff authentication and protected ticket dashboard | Completed |
+| Task 3 | Ticket details and staff replies | Upcoming |
+| Task 4 | Ticket status management and SLA | Upcoming |
+| Task 5 | Deployment and handover | Upcoming |
 
+## Repository
 
+GitHub: https://github.com/noor-2323/mehfil-event-support-ticket-system
+
+## Author
+
+Noor ul Ain
